@@ -1,5 +1,6 @@
+package projectbank;
 
-public class CreateAccount {
+public class WithDrawal {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

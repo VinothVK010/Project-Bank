@@ -1,3 +1,4 @@
+package projectbank;
 
 public class Deposit {
 
