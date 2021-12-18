@@ -2,7 +2,12 @@
 package projectbank;
 
 import java.util.HashMap;
+import java.util.Scanner;
+
+import org.w3c.dom.UserDataHandler;
+
 import java.util.Date;
+import java.util.ArrayList;
 
 public class AccountHolder {
 	
@@ -10,16 +15,24 @@ public class AccountHolder {
 	private Date createdDate;
 	private String aadhar;
 	private String panNum;
-	private int decryptKey;
-	private HashMap<String,Integer> accountDetails;
+	private String fatherName;
+	private ArrayList<String> userInputs;
 	
 	
-	public AccountHolder(String name) 
+	public AccountHolder(ArrayList<String>userInputs)
 	{
-		this.setName(name);
+		this.userInputs = userInputs;
+		setUserInputs();
+	}
+	
+	public void setUserInputs()
+	{
+		this.name = userInputs.get(0);
+		this.aadhar = userInputs.get(1);
+		this.panNum = userInputs.get(2);
 		
 	}
-
+	
 	public String getName() {
 		return name;
 	}
