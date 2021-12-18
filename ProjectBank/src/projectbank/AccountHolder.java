@@ -1,5 +1,7 @@
+
 package projectbank;
 
+import java.util.HashMap;
 import java.util.Date;
 
 public class AccountHolder {
@@ -9,6 +11,7 @@ public class AccountHolder {
 	private String aadhar;
 	private String panNum;
 	private int decryptKey;
+	private HashMap<String,Integer> accountDetails;
 	
 	
 	public AccountHolder(String name) 
