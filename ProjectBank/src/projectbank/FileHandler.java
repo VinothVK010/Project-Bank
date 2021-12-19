@@ -1,7 +1,8 @@
 package projectbank;
 
-/*Always sticking to csv files but why?.IDK but I like it.
- *@author karmugilan
+/**
+ * Always sticking to csv files but why?.IDK but I like it.
+ * @author karmugilan
  */
 
 import java.io.BufferedReader;
@@ -35,7 +36,7 @@ public class FileHandler
 		    fileWriter = Files.newBufferedWriter(filePath,StandardOpenOption.APPEND,StandardOpenOption.CREATE); //Interesting one mmmm.
 			fileReader = Files.newBufferedReader(filePath);
 		} 
-		catch (IOException e)
+		catch (IOException e)//This won't work for now
 		{
 			System.out.println("The specified file is not found! " + fileName);
 			e.printStackTrace();
@@ -43,26 +44,14 @@ public class FileHandler
 		
 	}
 	
-	public void writeString(String s)
+	public void writeString(String s)//Any better name?? for this fn.
 	{
 		try
 		{
 			fileWriter.write(s+"\n");//writing stuff with \n character.
-			fileWriter.flush();
+			fileWriter.flush();//This has to be called to write the stuff on the file.otherwise it doesn't work
 		} 
 		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-	}
-	
-	public void closeFiles()//Always close the files from the code.
-	{
-		try
-		{
-			fileWriter.close();
-			fileReader.close();
-		} catch (IOException e)//This won't run LOL but java wants it.
 		{
 			e.printStackTrace();
 		}
@@ -103,7 +92,8 @@ public class FileHandler
 				line = fileReader.readLine();
 				if(line == null)
 					break;
-			} catch (IOException e)
+			} 
+			catch (IOException e)
 			{
 				e.printStackTrace();
 			}
@@ -113,8 +103,22 @@ public class FileHandler
 		return strings;
 	}
 	
+	public void closeFiles()//Always close the files from the code.
+	{
+		try
+		{
+			fileWriter.close();
+			fileReader.close();
+		} 
+		catch (IOException e)//This won't run LOL but java wants it.
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	public static void main(String[] args) 
 	{
+		//example 
 		FileHandler fh = new FileHandler("data.csv");//Any better name for the file??
 		System.out.println(fh.splitStringFromFile());//testing stuff
 		fh.closeFiles();
