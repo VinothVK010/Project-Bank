@@ -12,6 +12,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.io.BufferedWriter;
@@ -85,9 +86,9 @@ public class FileHandler
 		return userInputs;
 	}
 	
-	public ArrayList<ArrayList<String>> splitStringFromFile()//better name would be CSVParser I guess.
+	public HashMap<String,ArrayList<String>> splitStringFromFile()//better name would be CSVParser I guess.
 	{
-		ArrayList<ArrayList<String>> strings = new ArrayList<>();
+		HashMap<String,ArrayList<String>> strings = new HashMap<>();
 		while(true)
 		{
 			String line = "";
@@ -103,7 +104,8 @@ public class FileHandler
 				e.printStackTrace();
 				break;
 			}
-			strings.add(parseString(line.split(",")));//usual CSV stuff nothing big.
+			String[] strs =  line.split(",");
+			strings.put(strs[0],parseString(strs));//usual CSV stuff nothing big.
 			//strings.add(getTokens("[a-zA-Z1-9^, ]*",line)); //Slight Flexing Don't judge me!! These are regular expressions.
 		}
 		return strings;
