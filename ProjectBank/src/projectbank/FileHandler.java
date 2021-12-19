@@ -111,6 +111,29 @@ public class FileHandler
 		return strings;
 	}
 	
+	public ArrayList<String> getPrintData()
+	{
+		ArrayList<String> printData = new ArrayList<>();
+		while(true)
+		{
+			String line = "";
+			try
+			{
+				line = fileReader.readLine();
+				if(line == null)
+					break;
+			} 
+			catch (IOException e)
+			{
+				System.out.println("Never close a file while your are reading it!");
+				e.printStackTrace();
+				break;
+			}
+			printData.add(line);
+		}
+		return printData;
+	}
+	
 	public void closeFile()//Always close the files from the code.
 	{
 		try
@@ -134,8 +157,11 @@ public class FileHandler
 		System.out.println(fh.splitStringFromFile());//testing stuff
 		fh.closeFile();//always close one file before opening another one!.
 		fh.openFile("data2.csv");
-		fh.writeString("vinoth,543,23489,8");//testing for if the writing the file works or not
+		//fh.writeString("vinoth,543,23489,8");//testing for if the writing the file works or not
 		System.out.println(fh.splitStringFromFile());//always call before closing the file 
+		fh.closeFile();
+		fh.openFile("printdata.txt");
+		System.out.println(fh.getPrintData());
 		fh.closeFile();
 	}
 

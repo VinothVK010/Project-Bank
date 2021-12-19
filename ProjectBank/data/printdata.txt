@@ -1,0 +1,5 @@
+Enter your Name: 
+Enter your Password: 
+Enter your Father's Name: 
+Enter your AadharNumber: 
+Enter PAN Number: 
