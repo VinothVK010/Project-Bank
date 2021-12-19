@@ -34,7 +34,7 @@ public class FileHandler
 		try
 		{
 		    fileWriter = Files.newBufferedWriter(filePath,StandardOpenOption.APPEND,StandardOpenOption.CREATE); //Interesting one mmmm.
-			fileReader = Files.newBufferedReader(filePath);
+		    fileReader = Files.newBufferedReader(filePath);
 		} 
 		catch (IOException e)//This won't work for now
 		{
@@ -98,7 +98,7 @@ public class FileHandler
 				e.printStackTrace();
 			}
 			strings.add(parseString(line.split(",")));//usual CSV stuff nothing big.
-			//strings.add(getTokens("[a-zA-z1-9^,]*",line)); //Slight Flexing Don't judge me!! These are regular expressions.
+			//strings.add(getTokens("[a-zA-Z1-9^, ]*",line)); //Slight Flexing Don't judge me!! These are regular expressions.
 		}
 		return strings;
 	}
