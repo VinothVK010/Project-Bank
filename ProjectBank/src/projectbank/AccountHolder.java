@@ -1,36 +1,36 @@
 
 package projectbank;
 
-import java.util.HashMap;
-import java.util.Scanner;
-
-import org.w3c.dom.UserDataHandler;
-
 import java.util.Date;
 import java.util.ArrayList;
 
 public class AccountHolder {
 	
+	
 	private String name;
-	private Date createdDate;
+	private String fatherName;
+	private String createdDate;
 	private String aadhar;
 	private String panNum;
-	private String fatherName;
+	private String accountNo;
 	private ArrayList<String> userInputs;
 	
 	
 	public AccountHolder(ArrayList<String>userInputs)
 	{
 		this.userInputs = userInputs;
+		Date date = new Date();
+		createdDate = date.toString();
 		setUserInputs();
 	}
 	
 	public void setUserInputs()
 	{
-		this.name = userInputs.get(0);
-		this.aadhar = userInputs.get(1);
-		this.panNum = userInputs.get(2);
-		
+		name = userInputs.get(0);
+		fatherName = userInputs.get(1);
+		aadhar = userInputs.get(2);
+		panNum = userInputs.get(3);
+		accountNo = userInputs.get(4);
 	}
 	
 	public String getName() {
@@ -44,7 +44,7 @@ public class AccountHolder {
 	@Override
 	public String toString()
 	{
-		return name;
+		return name + " " + fatherName;
 	}
 	
 	
