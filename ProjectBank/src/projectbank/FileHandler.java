@@ -21,7 +21,6 @@ import java.io.BufferedWriter;
 
 public class FileHandler 
 {
-	
 	private Path filePath;
 	private BufferedReader fileReader;
 	private static String currentDirectory;
@@ -29,7 +28,13 @@ public class FileHandler
 	
 	public FileHandler(String fileName)//TODO change the constructor and come up with a better idea.
 	{
+		//Because it's static
 		currentDirectory = System.getProperty("user.dir"); //returns the current working dir.
+		openFile(fileName);
+	}
+	
+	public void openFile(String fileName)
+	{
 		filePath = Paths.get(currentDirectory + "/data/" + fileName);//current working dir
 		try
 		{
@@ -41,15 +46,14 @@ public class FileHandler
 			System.out.println("The specified file is not found! " + fileName);
 			e.printStackTrace();
 		}
-		
 	}
 	
 	public void writeString(String s)//Any better name?? for this fn.
 	{
 		try
 		{
-			fileWriter.write(s+"\n");//writing stuff with \n character.
-			fileWriter.flush();//This has to be called to write the stuff on the file.otherwise it doesn't work
+			fileWriter.write(s + "\n");//writing stuff with \n character.
+			fileWriter.flush();//This has to be called to write the stuff on the file otherwise it doesn't work.
 		} 
 		catch (IOException e)
 		{
@@ -95,7 +99,9 @@ public class FileHandler
 			} 
 			catch (IOException e)
 			{
+				System.out.println("Never close a file while your are reading it!");
 				e.printStackTrace();
+				break;
 			}
 			strings.add(parseString(line.split(",")));//usual CSV stuff nothing big.
 			//strings.add(getTokens("[a-zA-Z1-9^, ]*",line)); //Slight Flexing Don't judge me!! These are regular expressions.
@@ -103,15 +109,18 @@ public class FileHandler
 		return strings;
 	}
 	
-	public void closeFiles()//Always close the files from the code.
+	public void closeFile()//Always close the files from the code.
 	{
 		try
 		{
 			fileWriter.close();
 			fileReader.close();
+			fileWriter = null;
+			fileReader = null;
 		} 
 		catch (IOException e)//This won't run LOL but java wants it.
 		{
+			System.out.println("Don't delete the file while the App is running!");
 			e.printStackTrace();
 		}
 	}
@@ -121,7 +130,11 @@ public class FileHandler
 		//example 
 		FileHandler fh = new FileHandler("data.csv");//Any better name for the file??
 		System.out.println(fh.splitStringFromFile());//testing stuff
-		fh.closeFiles();
+		fh.closeFile();//always close one file before opening another one!.
+		fh.openFile("data2.csv");
+		fh.writeString("vinoth,543,23489,8");//testing for if the writing the file works or not
+		System.out.println(fh.splitStringFromFile());//always call before closing the file 
+		fh.closeFile();
 	}
 
 }
