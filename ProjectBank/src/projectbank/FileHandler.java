@@ -1,5 +1,9 @@
 package projectbank;
 
+/*Always sticking to csv files but why?.IDK but I like it.
+ *@author karmugilan
+ */
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -7,8 +11,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.io.BufferedWriter;
@@ -16,30 +18,21 @@ import java.io.BufferedWriter;
 
 //TODO do this stuff LOL
 
-
-
-public class FileHandler {
+public class FileHandler 
+{
 	
 	private Path filePath;
 	private BufferedReader fileReader;
 	private static String currentDirectory;
 	private BufferedWriter fileWriter;
 	
-	public FileHandler(String fileName)
+	public FileHandler(String fileName)//TODO change the constructor and come up with a better idea.
 	{
 		currentDirectory = System.getProperty("user.dir"); //returns the current working dir.
-		//String osName = System.getProperty("os.name");	//returns the os name.
 		filePath = Paths.get(currentDirectory + "/data/" + fileName);//current working dir
 		try
 		{
-			//FileWriter writer = new FileWriter("D:\\testout.txt");  
-			//bufferedWriter = new BufferedWriter(writer);
-			//bufferedWriter.write("Hello");
-		    //FileWriter writer = new FileWriter("D:\\testout.txt");  
-		    fileWriter = Files.newBufferedWriter(filePath,StandardOpenOption.APPEND,StandardOpenOption.CREATE); 
-		    
-		    //fileWriter.write("Kamrugilan,,,");  
-		    //fileWriter.close();  
+		    fileWriter = Files.newBufferedWriter(filePath,StandardOpenOption.APPEND,StandardOpenOption.CREATE); //Interesting one mmmm.
 			fileReader = Files.newBufferedReader(filePath);
 		} 
 		catch (IOException e)
@@ -54,7 +47,7 @@ public class FileHandler {
 	{
 		try
 		{
-			fileWriter.write(s+"\n");
+			fileWriter.write(s+"\n");//writing stuff with \n character.
 			fileWriter.flush();
 		} 
 		catch (IOException e)
@@ -63,20 +56,19 @@ public class FileHandler {
 		}
 	}
 	
-	public void closeFiles()
+	public void closeFiles()//Always close the files from the code.
 	{
 		try
 		{
 			fileWriter.close();
 			fileReader.close();
-		} catch (IOException e)
+		} catch (IOException e)//This won't run LOL but java wants it.
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	protected ArrayList<String> getTokens(String pattern,String text)
+	private ArrayList<String> getTokens(String pattern,String text) //Just Flexing here don't judge me LOL.
 	{
 		ArrayList<String> tokens = new ArrayList<String>();
 		Pattern tokSplitter = Pattern.compile(pattern);
@@ -89,9 +81,9 @@ public class FileHandler {
 		return tokens;
 	}
 	
-	private ArrayList<String> parseString(String[] lines)
+	private ArrayList<String> parseString(String[] lines) //java doesn't have one fn like this so I have to write it .
 	{
-		ArrayList<String> userInputs = new ArrayList<>();
+		ArrayList<String> userInputs = new ArrayList<>();	
 		//userInputs = Arrays.asList(lines); //not Working Idk why?
 		for(String s : lines)
 		{
@@ -100,7 +92,7 @@ public class FileHandler {
 		return userInputs;
 	}
 	
-	public ArrayList<ArrayList<String>> splitStringFromFile()
+	public ArrayList<ArrayList<String>> splitStringFromFile()//better name would be CSVParser I guess.
 	{
 		ArrayList<ArrayList<String>> strings = new ArrayList<>();
 		while(true)
@@ -113,23 +105,18 @@ public class FileHandler {
 					break;
 			} catch (IOException e)
 			{
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			strings.add(parseString(line.split(",")));
-			//strings.add(getTokens("[a-zA-z1-9^,]*",line)); //Slight Flexing Don't judge me!!
+			strings.add(parseString(line.split(",")));//usual CSV stuff nothing big.
+			//strings.add(getTokens("[a-zA-z1-9^,]*",line)); //Slight Flexing Don't judge me!! These are regular expressions.
 		}
 		return strings;
 	}
 	
 	public static void main(String[] args) 
 	{
-		FileHandler fh = new FileHandler("data.csv");
-		//fh.writeString("Hello MFS hello");
-		//fh.writeString("karmugilan,karm");
-		
-		System.out.println(fh.splitStringFromFile());
-		
+		FileHandler fh = new FileHandler("data.csv");//Any better name for the file??
+		System.out.println(fh.splitStringFromFile());//testing stuff
 		fh.closeFiles();
 	}
 
