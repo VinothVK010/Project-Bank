@@ -8,7 +8,7 @@ public class MainActivity {
 	public static void main(String[] args) 
 	{
 		Scanner command = new Scanner(System.in);
-		CreateAccount ca = new CreateAccount();
+		AccountManager am = new AccountManager();
 		System.out.println(" Press \" 1 \" to Create an Account "
 				+ "\n Press \" 2 \" to Exit");
 		
@@ -23,11 +23,13 @@ public class MainActivity {
 			catch(Exception e)
 			{
 				System.out.println("please enter something ! ");
+				e.printStackTrace();
+				break;
 			}
 			switch(input)
 			{
 				case 1:
-					ca.createAccounts();
+					am.createAnAccount();
 					//programControl = false;
 					break;
 				case 2:

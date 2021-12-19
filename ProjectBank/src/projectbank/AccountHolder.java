@@ -14,25 +14,39 @@ public class AccountHolder {
 	private String panNum;
 	private String accountNo;
 	private String password;
+	private String accBalance;
 	private ArrayList<String> userInputs;
 	
 	
 	public AccountHolder(ArrayList<String>userInputs)
 	{
 		this.userInputs = userInputs;
-		Date date = new Date();
-		createdDate = date.toString();
 		setUserInputs();
+		saveToFile();
 	}
 	
 	public void setUserInputs()
 	{
 		name = userInputs.get(0);
-		fatherName = userInputs.get(1);
-		aadhar = userInputs.get(2);
-		panNum = userInputs.get(3);
-		accountNo = userInputs.get(4);
-		password = userInputs.get(5);
+		setPassword(userInputs.get(1));
+		fatherName = userInputs.get(2);
+		setAadhar(userInputs.get(3));
+		setPanNum(userInputs.get(4));
+		accountNo = userInputs.get(5);
+		accBalance = userInputs.get(6);
+		createdDate = userInputs.get(7);
+	}
+	
+	public void saveToFile() 
+	{
+		FileHandler fh = new FileHandler("data.csv");
+		String output = "";
+		for(String s : userInputs)
+		{
+			output += "," + s ;
+		}
+		fh.writeString(output);
+		fh.closeFile();
 	}
 	
 	public String getName() {
@@ -47,6 +61,38 @@ public class AccountHolder {
 	public String toString()
 	{
 		return name + " " + fatherName;
+	}
+
+	public int getAccBalance() {
+		return Integer.parseInt(accBalance);
+	}
+
+	public void setAccBalance(int accBalance) {
+		this.accBalance = ""+accBalance;
+	}
+
+	public String getAadhar() {
+		return aadhar;
+	}
+
+	public void setAadhar(String aadhar) {
+		this.aadhar = aadhar;
+	}
+
+	public String getPanNum() {
+		return panNum;
+	}
+
+	public void setPanNum(String panNum) {
+		this.panNum = panNum;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	
 	

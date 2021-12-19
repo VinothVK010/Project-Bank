@@ -2,34 +2,26 @@ package projectbank;
 
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Random;
 
 
-public class CreateAccount {
-
-	private ArrayList<String> printData = new ArrayList<>();
+public class CreateAccount 
+{
+	private ArrayList<String> printData;
 	//private HashMap<String,String> userInput = new HashMap<>();
-	private ArrayList<String> userInput = new ArrayList<>();
-	//private ArrayList<String> generatedAccNos = new ArrayList<>();	
-	private Scanner scanner = new Scanner(System.in);
+	private ArrayList<String> userInput;	
+	private Scanner scanner;
+	private FileHandler fh;
+	private Date date;
 	
-	private void getUserInformation()
+	public CreateAccount()
 	{
-		String userData = "";
-		
-		printData.add("Enter your Name: ");
-		printData.add("Enter Father Name: ");
-		printData.add("Enter the AadharNumber: ");
-		printData.add("Enter PAN Number: ");
-		
-		for(String s : printData)
-		{
-			System.out.print(s);	
-			userData = scanner.nextLine();
-			userInput.add(userData);
-			
-		}	
-		
+		 printData = new ArrayList<>();
+		 userInput = new ArrayList<>();
+		 date = new Date();
+		 scanner = new Scanner(System.in);
+		 fh = new FileHandler("printdata.txt");
 	}
 	
 	private void createAccountNo()
@@ -48,24 +40,24 @@ public class CreateAccount {
 		System.out.println("Account Number : " + accountNo);
 	}
 	
-	public void createPasswords()
+	private void getUserInformation()
 	{
-		
-		System.out.println("Enter your Password: ");
-		String password = scanner.nextLine();
-		
-		System.out.println(password);
-		userInput.add(password);
-		
-		scanner.close();
+		String userData = "";
+		printData = fh.getPrintData();
+		for(String s : printData)
+		{
+			System.out.print(s);	
+			userData = scanner.nextLine();
+			userInput.add(userData);
+		}	
+		createAccountNo();
+		userInput.add("0");
+		userInput.add(date.toString());
 	}
-		
 	
-	public void createAccounts()
+	public void createAccount()
 	{
 		getUserInformation();
-		createAccountNo();
-		createPasswords();
 		AccountHolder newAccount = new AccountHolder(userInput);
 		//System.out.println(newAccount);
 		
