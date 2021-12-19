@@ -13,6 +13,7 @@ public class AccountHolder {
 	private String aadhar;
 	private String panNum;
 	private String accountNo;
+	private String password;
 	private ArrayList<String> userInputs;
 	
 	
@@ -31,6 +32,7 @@ public class AccountHolder {
 		aadhar = userInputs.get(2);
 		panNum = userInputs.get(3);
 		accountNo = userInputs.get(4);
+		password = userInputs.get(5);
 	}
 	
 	public String getName() {

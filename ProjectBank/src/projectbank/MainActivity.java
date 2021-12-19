@@ -1,6 +1,6 @@
 package projectbank;
 
-import java.util.InputMismatchException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class MainActivity {
@@ -15,7 +15,15 @@ public class MainActivity {
 		boolean programControl = true;
 		while(programControl)
 		{
-			int input = command.nextInt();
+			int input = 0;
+			try
+			{
+				input = command.nextInt();
+			}
+			catch(Exception e)
+			{
+				System.out.println("please enter something ! ");
+			}
 			switch(input)
 			{
 				case 1:

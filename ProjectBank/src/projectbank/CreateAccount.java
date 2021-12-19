@@ -10,11 +10,11 @@ public class CreateAccount {
 	private ArrayList<String> printData = new ArrayList<>();
 	//private HashMap<String,String> userInput = new HashMap<>();
 	private ArrayList<String> userInput = new ArrayList<>();
-	//private ArrayList<String> generatedAccNos = new ArrayList<>();
+	//private ArrayList<String> generatedAccNos = new ArrayList<>();	
+	private Scanner scanner = new Scanner(System.in);
 	
 	private void getUserInformation()
 	{
-		Scanner scanner = new Scanner(System.in);
 		String userData = "";
 		
 		printData.add("Enter your Name: ");
@@ -29,7 +29,7 @@ public class CreateAccount {
 			userInput.add(userData);
 			
 		}	
-		scanner.close();
+		
 	}
 	
 	private void createAccountNo()
@@ -43,25 +43,33 @@ public class CreateAccount {
 			 number = random.nextInt(9);
 			 accountNo += number;
 		}
+		
 		userInput.add(accountNo);
 		System.out.println("Account Number : " + accountNo);
 	}
 	
-	private String createPasswords()
+	public void createPasswords()
 	{
-		Scanner scanner = new Scanner(System.in);
-		System.out.println("Enter your Password: ");
-		return scanner.nextLine();
 		
+		System.out.println("Enter your Password: ");
+		String password = scanner.nextLine();
+		
+		System.out.println(password);
+		userInput.add(password);
+		
+		scanner.close();
 	}
+		
 	
 	public void createAccounts()
 	{
 		getUserInformation();
 		createAccountNo();
+		createPasswords();
 		AccountHolder newAccount = new AccountHolder(userInput);
 		//System.out.println(newAccount);
 		
 	}
+	
 	
 }
