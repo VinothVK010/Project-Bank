@@ -40,11 +40,7 @@ public class AccountHolder {
 	
 	public String getOutputString()
 	{
-		String output = "";
-		for(String s : userInputs)
-		{
-			output += s + "," ;
-		}
+		String output = String.format("%s,%s,%s,%s,%s,%s,%s,%s",name,password,fatherName,aadhar,panNum,accountNo,accBalance,createdDate);
 		return output;
 	}
 	

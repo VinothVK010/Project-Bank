@@ -2,6 +2,7 @@ package projectbank;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 //TODO Someone has to do this stuff.
 
@@ -9,11 +10,16 @@ public class AccountManager
 {
 	private FileHandler fh;
 	private HashMap<String,ArrayList<String>> accountsData;
+	private Scanner scanner;
+	private HashMap<String,AccountHolder> accountHolderObjs;
 	
 	public AccountManager()
 	{
 		fh = new FileHandler("data.csv");
 		accountsData = new HashMap<>();
+		scanner = new Scanner(System.in);
+		loadExistingAccountsData();
+		accountHolderObjs = getLoadedAccounts();
 	}
 	
 	public void createAnAccount()
@@ -22,19 +28,35 @@ public class AccountManager
 		createAccount.createAccount();
 	}
 	
-	private void loadExistingAccountsData()//Load all the account data from the file.
+	public void loadExistingAccountsData()//Load all the account data from the file.
 	{
 		accountsData = fh.splitStringFromFile();
 	}
 	
 	public AccountHolder accountLogin()//if username and passwords match then return the AccountHolder obj for withdrawal and deposit purposes.
 	{
-		
+		System.out.print("Enter your UserName: ");
+		String username = scanner.next();
+		if(accountHolderObjs.containsKey(username))
+		{
+			AccountHolder ac = accountHolderObjs.get(username);
+			System.out.print("Enter your Password: ");
+			String password = scanner.next();
+			if(password.equals(ac.getPassword()))
+			{
+				System.out.println("Account Login Successfull !!! ");
+			}
+			else 
+			{
+				System.out.println("Your Username (or) Password is Incorrect ");
+			}
+		}
 		return null;
 	}
 	
 	public boolean isAccountAlreadyExists()//check if the account already exists. HINT add some parameters.
 	{
+		
 		return true;
 	}
 	
@@ -48,9 +70,18 @@ public class AccountManager
 		
 	}
 	
-	public HashMap<String,ArrayList<AccountHolder>> getLoadedAccounts() //instantiate AccountHolder objs.
+	public HashMap<String,AccountHolder> getLoadedAccounts() //instantiate AccountHolder objs.
 	{
-		return null;
+		HashMap<String,AccountHolder> accountData = new HashMap<>();
+		for(String s : accountsData.keySet())
+		{
+			AccountHolder ac = new AccountHolder(accountsData.get(s),false);
+			//ac.setAccBalance(5000);
+			//ac.saveToFile();
+			accountData.put(s, ac);
+			ac=null;
+		}
+		return accountData;
 	}
 	
 	public static void main(String[] args) 
