@@ -38,15 +38,20 @@ public class AccountHolder {
 		createdDate = userInputs.get(7);
 	}
 	
-	public void saveToFile() 
+	public String getOutputString()
 	{
-		FileHandler fh = new FileHandler("data.csv");
 		String output = "";
 		for(String s : userInputs)
 		{
 			output += s + "," ;
 		}
-		fh.writeString(output);
+		return output;
+	}
+	
+	public void saveToFile() 
+	{
+		FileHandler fh = new FileHandler("data.csv");
+		fh.writeString(getOutputString());
 		fh.closeFile();
 	}
 	

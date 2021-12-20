@@ -174,6 +174,7 @@ public class FileHandler
 		fh.openFile("data2.csv");
 		//fh.writeString("vinoth,543,23489,8");//testing for if the writing the file works or not
 		System.out.println(fh.splitStringFromFile());//always call before closing the file 
+		fh.dumString("karmugilan,karmugilan2002,rm,8825679623,8825679624,94165662083,0,Mon Dec 20 10:57:33 IST 2021,\n");
 		fh.closeFile();
 		fh.openFile("printdata.txt");
 		System.out.println(fh.getPrintData());
