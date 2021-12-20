@@ -62,6 +62,21 @@ public class FileHandler
 		}
 	}
 	
+	public void dumString(String s)
+	{
+		fileWriter = null;
+		try
+		{
+			fileWriter = Files.newBufferedWriter(filePath, StandardOpenOption.WRITE,StandardOpenOption.CREATE);
+			fileWriter.write(s);
+		} 
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		
+	}
+	
 	private ArrayList<String> getTokens(String pattern,String text) //Just Flexing here don't judge me LOL.
 	{
 		ArrayList<String> tokens = new ArrayList<String>();

@@ -58,7 +58,7 @@ public class CreateAccount
 	public void createAccount()
 	{
 		getUserInformation();
-		AccountHolder newAccount = new AccountHolder(userInput);
+		AccountHolder newAccount = new AccountHolder(userInput,true);
 		//System.out.println(newAccount);
 		
 	}

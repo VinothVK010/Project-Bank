@@ -18,11 +18,12 @@ public class AccountHolder {
 	private ArrayList<String> userInputs;
 	
 	
-	public AccountHolder(ArrayList<String>userInputs)
+	public AccountHolder(ArrayList<String>userInputs,boolean saveToFile)
 	{
 		this.userInputs = userInputs;
 		setUserInputs();
-		saveToFile();
+		if(saveToFile)
+			saveToFile();
 	}
 	
 	public void setUserInputs()
@@ -43,7 +44,7 @@ public class AccountHolder {
 		String output = "";
 		for(String s : userInputs)
 		{
-			output += "," + s ;
+			output += s + "," ;
 		}
 		fh.writeString(output);
 		fh.closeFile();
