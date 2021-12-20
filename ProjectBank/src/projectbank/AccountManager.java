@@ -3,14 +3,17 @@ package projectbank;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-//TODO Some has to do this stuff.
+//TODO Someone has to do this stuff.
 
 public class AccountManager 
 {
+	private FileHandler fh;
+	private HashMap<String,ArrayList<String>> accountsData;
 	
 	public AccountManager()
 	{
-		
+		fh = new FileHandler("data.csv");
+		accountsData = new HashMap<>();
 	}
 	
 	public void createAnAccount()
@@ -19,13 +22,14 @@ public class AccountManager
 		createAccount.createAccount();
 	}
 	
-	private void loadExistingAccounts()//Load all the account data from the file.
+	private void loadExistingAccountsData()//Load all the account data from the file.
 	{
-		
+		accountsData = fh.splitStringFromFile();
 	}
 	
 	public AccountHolder accountLogin()//if username and passwords match then return the AccountHolder obj for withdrawal and deposit purposes.
 	{
+		
 		return null;
 	}
 	
