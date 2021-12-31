@@ -12,9 +12,13 @@ class Tester {
 		//CreateAccount ca = new CreateAccount();
 		//ca.createAccounts();
 		//ca.createAccountNo();
-		AccountManager am = new AccountManager();
+		//AccountManager am = new AccountManager();
+		//am.getLoadedAccounts();
+		//am.loadExistingAccountsData();
 		//am.accountLogin();
-		am.getLoadedAccounts();
+		
+		
+		
 		
 	}
 

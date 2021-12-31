@@ -3,6 +3,7 @@ package projectbank;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Set;
 
 //TODO Someone has to do this stuff.
 
@@ -31,6 +32,7 @@ public class AccountManager
 	public void loadExistingAccountsData()//Load all the account data from the file.
 	{
 		accountsData = fh.splitStringFromFile();
+		//System.out.println(accountsData.keySet());
 	}
 	
 	public AccountHolder accountLogin()//if username and passwords match then return the AccountHolder obj for withdrawal and deposit purposes.
@@ -54,10 +56,11 @@ public class AccountManager
 		return null;
 	}
 	
-	public boolean isAccountAlreadyExists()//check if the account already exists. HINT add some parameters.
+	public boolean isAccountAlreadyExists(String username)//check if the account already exists. HINT add some parameters.
 	{
 		
-		return true;
+		
+		return accountHolderObjs.containsKey(username);
 	}
 	
 	public void deleteAccount()//Delete the account I guess hmmm.
@@ -79,14 +82,16 @@ public class AccountManager
 			//ac.setAccBalance(5000);
 			//ac.saveToFile();
 			accountData.put(s, ac);
-			ac=null;
+			ac = null;
 		}
+			
 		return accountData;
 	}
 	
 	public static void main(String[] args) 
 	{
-		
+		AccountManager am = new AccountManager();
+		//am.getLoadedAccounts();
+	
 	}
-
 }
