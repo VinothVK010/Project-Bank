@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Set;
 
+import imgui.type.ImString;
+
 //TODO Someone has to do this stuff.
 
 public class AccountManager 
@@ -13,14 +15,20 @@ public class AccountManager
 	private HashMap<String,ArrayList<String>> accountsData;
 	private Scanner scanner;
 	private HashMap<String,AccountHolder> accountHolderObjs;
+	private ArrayList<String> printdata;
+	private CreateAccount ca;
 	
 	public AccountManager()
 	{
-		fh = new FileHandler("data.csv");
+		fh = new FileHandler("printdata.txt");
+		printdata = fh.getPrintData();
+		fh.closeFile();
+		fh.openFile("data.csv");
 		accountsData = new HashMap<>();
 		scanner = new Scanner(System.in);
 		loadExistingAccountsData();
 		accountHolderObjs = getLoadedAccounts();
+		ca = new CreateAccount();
 	}
 	
 	public void createAnAccount()
@@ -31,7 +39,9 @@ public class AccountManager
 	
 	public void loadExistingAccountsData()//Load all the account data from the file.
 	{
+		fh.openFile("data.csv");
 		accountsData = fh.splitStringFromFile();
+		System.out.println(accountsData);
 		//System.out.println(accountsData.keySet());
 	}
 	
@@ -58,8 +68,6 @@ public class AccountManager
 	
 	public boolean isAccountAlreadyExists(String username)//check if the account already exists. HINT add some parameters.
 	{
-		
-		
 		return accountHolderObjs.containsKey(username);
 	}
 	
@@ -93,5 +101,43 @@ public class AccountManager
 		AccountManager am = new AccountManager();
 		//am.getLoadedAccounts();
 	
+	}
+
+	public String accountLogin(String userName, String password) 
+	{
+		loadExistingAccountsData();
+		accountHolderObjs = getLoadedAccounts();
+		System.out.println(accountsData);
+		String success = "";
+		if(accountHolderObjs.containsKey(userName))
+		{
+			AccountHolder ac = accountHolderObjs.get(userName);
+			if(password.equals(ac.getPassword()))
+			{
+				success = "Account Login Successfull !!! ";
+			}
+			else 
+			{
+				success = "Your Username (or) Password is Incorrect ";
+			}
+		}
+		return success;
+	}
+
+	public void createAnAccount(ArrayList<ImString> userdata) 
+	{
+		
+		ca.createAccount(userdata);
+	}
+	
+	public ArrayList<String> getPrintData()
+	{
+		return this.printdata;
+	}
+
+	public String getAccountNO() 
+	{
+	
+		return ca.getAccountNO();
 	}
 }
