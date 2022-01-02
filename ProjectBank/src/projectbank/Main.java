@@ -76,7 +76,6 @@ public class Main extends Application
 			pass.process(num.get());
 			
 		}
-		//ImGui.text(pass.getPassword());
 		ImGui.pushTextWrapPos();
 		ImGui.textColored(color[0], color[1], color[2], 1.0f, pass.getPassword());
 		ImGui.newLine();
@@ -126,11 +125,8 @@ public class Main extends Application
 		ImGui.begin("Create Account");
 		for(int i = 0; i < printdata.size(); i++)
 		{
-			//ImGui.sameLine();
 			ImGui.pushTextWrapPos();
-			if(ImGui.inputText(printdata.get(i), userdata.get(i)))
-			{
-			}
+			ImGui.inputText(printdata.get(i), userdata.get(i));
 			ImGui.popTextWrapPos();
 		}
 		

@@ -18,7 +18,7 @@ public class CreateAccount
 	//private FileHandler fh;
 	private Date date;
 	private boolean flag = true;
-	private String accountNO;
+	private String accountNO = "";
 	
 	public CreateAccount()
 	{
@@ -41,7 +41,7 @@ public class CreateAccount
 			 number = random.nextInt(9);
 			 accountNo += number;
 		}
-		
+		accountNO = accountNo;
 		userInput.add(accountNo);
 		System.out.println("Account Number : " + accountNo);
 		if(flag)
@@ -72,9 +72,7 @@ public class CreateAccount
 		if(flag)
 		{
 			AccountHolder newAccount = new AccountHolder(userInput,true);
-		}
-		//System.out.println(newAccount);
-		
+		}		
 	}
 	
 	
@@ -93,7 +91,6 @@ public class CreateAccount
 		userInput.clear();
 		for(ImString s : userdata)
 		{
-			//System.out.print(s);
 			if(s.isNotEmpty())
 				userInput.add(s.get());
 			else
@@ -115,7 +112,7 @@ public class CreateAccount
 
 	public String getAccountNO() 
 	{
-		return accountNO = createAccountNo();
+		return accountNO;
 	}
 	
 }

@@ -6,7 +6,37 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/imgui"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/lwjgl"/>
+	<classpathentry kind="lib" path="io.github.spair/imgui-java-app-1.85.1.jar" sourcepath="io.github.spair/imgui-java-app-1.85.1-sources.jar"/>
+	<classpathentry kind="lib" path="io.github.spair/imgui-java-binding-1.85.1.jar" sourcepath="io.github.spair/imgui-java-binding-1.85.1-sources.jar"/>
+	<classpathentry kind="lib" path="io.github.spair/imgui-java-lwjgl3-1.85.1.jar" sourcepath="io.github.spair/imgui-java-lwjgl3-1.85.1-sources.jar"/>
+	<classpathentry kind="lib" path="io.github.spair/imgui-java-natives-linux-1.85.1.jar" sourcepath="io.github.spair/imgui-java-natives-linux-1.85.1-sources.jar"/>
+	<classpathentry kind="lib" path="io.github.spair/imgui-java-natives-windows-1.85.1.jar" sourcepath="io.github.spair/imgui-java-natives-windows-1.85.1-sources.jar"/>
+	<classpathentry kind="lib" path="org.lwjgl/lwjgl-3.3.0.jar"/>
+	<classpathentry kind="lib" path="org.lwjgl/lwjgl-3.3.0-natives-linux.jar"/>
+	<classpathentry kind="lib" path="org.lwjgl/lwjgl-3.3.0-natives-macos.jar"/>
+	<classpathentry kind="lib" path="org.lwjgl/lwjgl-3.3.0-natives-windows.jar"/>
+	<classpathentry kind="lib" path="org.lwjgl/lwjgl-3.3.0-sources.jar"/>
+	<classpathentry kind="lib" path="org.lwjgl/lwjgl-assimp-3.3.0.jar"/>
+	<classpathentry kind="lib" path="org.lwjgl/lwjgl-assimp-3.3.0-natives-linux.jar"/>
+	<classpathentry kind="lib" path="org.lwjgl/lwjgl-assimp-3.3.0-sources.jar"/>
+	<classpathentry kind="lib" path="org.lwjgl/lwjgl-glfw-3.3.0.jar"/>
+	<classpathentry kind="lib" path="org.lwjgl/lwjgl-glfw-3.3.0-natives-linux.jar"/>
+	<classpathentry kind="lib" path="org.lwjgl/lwjgl-glfw-3.3.0-natives-macos.jar"/>
+	<classpathentry kind="lib" path="org.lwjgl/lwjgl-glfw-3.3.0-natives-windows.jar"/>
+	<classpathentry kind="lib" path="org.lwjgl/lwjgl-glfw-3.3.0-sources.jar"/>
+	<classpathentry kind="lib" path="org.lwjgl/lwjgl-nfd-3.3.0.jar"/>
+	<classpathentry kind="lib" path="org.lwjgl/lwjgl-nfd-3.3.0-natives-linux.jar"/>
+	<classpathentry kind="lib" path="org.lwjgl/lwjgl-nfd-3.3.0-sources.jar"/>
+	<classpathentry kind="lib" path="org.lwjgl/lwjgl-openal-3.3.0.jar"/>
+	<classpathentry kind="lib" path="org.lwjgl/lwjgl-openal-3.3.0-natives-linux.jar"/>
+	<classpathentry kind="lib" path="org.lwjgl/lwjgl-openal-3.3.0-sources.jar"/>
+	<classpathentry kind="lib" path="org.lwjgl/lwjgl-opengl-3.3.0.jar"/>
+	<classpathentry kind="lib" path="org.lwjgl/lwjgl-opengl-3.3.0-natives-linux.jar"/>
+	<classpathentry kind="lib" path="org.lwjgl/lwjgl-opengl-3.3.0-natives-macos.jar"/>
+	<classpathentry kind="lib" path="org.lwjgl/lwjgl-opengl-3.3.0-natives-windows.jar"/>
+	<classpathentry kind="lib" path="org.lwjgl/lwjgl-opengl-3.3.0-sources.jar"/>
+	<classpathentry kind="lib" path="org.lwjgl/lwjgl-stb-3.3.0.jar"/>
+	<classpathentry kind="lib" path="org.lwjgl/lwjgl-stb-3.3.0-natives-linux.jar"/>
+	<classpathentry kind="lib" path="org.lwjgl/lwjgl-stb-3.3.0-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

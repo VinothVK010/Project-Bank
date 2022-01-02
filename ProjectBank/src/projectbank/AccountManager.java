@@ -17,7 +17,6 @@ public class AccountManager
 	private HashMap<String,AccountHolder> accountHolderObjs;
 	private ArrayList<String> printdata;
 	private CreateAccount ca;
-	boolean accountFlag = false;
 	
 	public AccountManager()
 	{
@@ -103,15 +102,6 @@ public class AccountManager
 		return accountData;
 	}
 	
-	public static void main(String[] args) 
-	{
-		AccountManager am = new AccountManager();
-		//am.getLoadedAccounts();
-		am.deleteAccount("karmug");
-		am.dumpToFile();
-	
-	}
-
 	public String accountLogin(String userName, String password) 
 	{
 		loadExistingAccountsData();
@@ -138,7 +128,6 @@ public class AccountManager
 		if(!accountsData.containsKey(userdata.get(0).get()))
 		{
 			ca.createAccount(userdata);
-			accountFlag = true;
 		}
 	}
 	
@@ -148,13 +137,7 @@ public class AccountManager
 	}
 
 	public String getAccountNO() 
-	{
-		String s = "";
-		if(accountFlag)
-		{
-			accountFlag = false;
-			s = ca.getAccountNO();
-		}
-		return s;
+	{	
+		return ca.getAccountNO();
 	}
 }
