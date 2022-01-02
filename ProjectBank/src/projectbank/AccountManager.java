@@ -26,8 +26,6 @@ public class AccountManager
 		fh.openFile("data.csv");
 		accountsData = new HashMap<>();
 		scanner = new Scanner(System.in);
-		loadExistingAccountsData();
-		accountHolderObjs = getLoadedAccounts();
 		ca = new CreateAccount();
 	}
 	
@@ -39,8 +37,10 @@ public class AccountManager
 	
 	public void loadExistingAccountsData()//Load all the account data from the file.
 	{
-		fh.openFile("data.csv");
+		//FileHandler fh = new FileHandler("data.csv");
+		
 		accountsData = fh.splitStringFromFile();
+		//fh.closeFile();
 		//System.out.println(accountsData);
 		//System.out.println(accountsData.keySet());
 	}
@@ -71,14 +71,29 @@ public class AccountManager
 		return accountHolderObjs.containsKey(username);
 	}
 	
-	public void deleteAccount()//Delete the account I guess hmmm.
+	public void deleteAccount(String accountName)//Delete the account I guess hmmm.
 	{
-		
+		loadExistingAccountsData();
+		accountHolderObjs = getLoadedAccounts();
+		if(isAccountAlreadyExists(accountName))
+		{
+			accountHolderObjs.remove(accountName);
+			this.dumpToFile();
+		}
 	}
 	
 	public void dumpToFile() //dump all info from the currently loaded account details to disk.
 	{
-		
+		//FileHandler fh = new FileHandler("data.csv");
+		String dump = "";
+		for(String s : accountHolderObjs.keySet())
+		{
+			dump += accountHolderObjs.get(s).getOutputString() +"\n"; 
+		}
+		fh.dumString(dump);
+		//fh.writeString(dump);
+		System.out.println(dump);
+		fh.closeFile();
 	}
 	
 	public HashMap<String,AccountHolder> getLoadedAccounts() //instantiate AccountHolder objs.
@@ -87,12 +102,9 @@ public class AccountManager
 		for(String s : accountsData.keySet())
 		{
 			AccountHolder ac = new AccountHolder(accountsData.get(s),false);
-			//ac.setAccBalance(5000);
-			//ac.saveToFile();
 			accountData.put(s, ac);
 			ac = null;
 		}
-			
 		return accountData;
 	}
 	
@@ -100,6 +112,7 @@ public class AccountManager
 	{
 		AccountManager am = new AccountManager();
 		//am.getLoadedAccounts();
+		am.deleteAccount("karmug");
 	
 	}
 
@@ -107,8 +120,8 @@ public class AccountManager
 	{
 		loadExistingAccountsData();
 		accountHolderObjs = getLoadedAccounts();
-		System.out.println(accountsData);
-		String success = "";
+		//System.out.println(accountsData);
+		String success ="Your Username (or) Password is Incorrect ";
 		if(accountHolderObjs.containsKey(userName))
 		{
 			AccountHolder ac = accountHolderObjs.get(userName);

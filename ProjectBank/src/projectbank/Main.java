@@ -63,6 +63,7 @@ public class Main extends Application
 		{
 			passwordGenerator();
 		}
+		afterLogin();
 	}
 	
 	public void passwordGenerator()
@@ -145,7 +146,10 @@ public class Main extends Application
 	public void afterLogin()
 	{
 		ImGui.begin("Your Account");
-		
+		if(ImGui.button("deleteAccount"))
+		{
+			am.deleteAccount("kar");
+		}
 		ImGui.end();
 	}
 	
