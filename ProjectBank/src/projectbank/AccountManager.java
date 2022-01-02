@@ -17,13 +17,13 @@ public class AccountManager
 	private HashMap<String,AccountHolder> accountHolderObjs;
 	private ArrayList<String> printdata;
 	private CreateAccount ca;
+	boolean accountFlag = false;
 	
 	public AccountManager()
 	{
 		fh = new FileHandler("printdata.txt");
 		printdata = fh.getPrintData();
 		fh.closeFile();
-		fh.openFile("data.csv");
 		accountsData = new HashMap<>();
 		scanner = new Scanner(System.in);
 		ca = new CreateAccount();
@@ -37,12 +37,11 @@ public class AccountManager
 	
 	public void loadExistingAccountsData()//Load all the account data from the file.
 	{
-		//FileHandler fh = new FileHandler("data.csv");
-		
+		FileHandler fh = new FileHandler("data.csv");
+		accountsData = null;
 		accountsData = fh.splitStringFromFile();
-		//fh.closeFile();
-		//System.out.println(accountsData);
-		//System.out.println(accountsData.keySet());
+		accountHolderObjs = getLoadedAccounts();
+		fh.closeFile();
 	}
 	
 	public AccountHolder accountLogin()//if username and passwords match then return the AccountHolder obj for withdrawal and deposit purposes.
@@ -74,7 +73,6 @@ public class AccountManager
 	public void deleteAccount(String accountName)//Delete the account I guess hmmm.
 	{
 		loadExistingAccountsData();
-		accountHolderObjs = getLoadedAccounts();
 		if(isAccountAlreadyExists(accountName))
 		{
 			accountHolderObjs.remove(accountName);
@@ -84,16 +82,13 @@ public class AccountManager
 	
 	public void dumpToFile() //dump all info from the currently loaded account details to disk.
 	{
-		//FileHandler fh = new FileHandler("data.csv");
+		FileHandler fh = new FileHandler("data.csv");
 		String dump = "";
 		for(String s : accountHolderObjs.keySet())
 		{
 			dump += accountHolderObjs.get(s).getOutputString() +"\n"; 
 		}
 		fh.dumString(dump);
-		//fh.writeString(dump);
-		System.out.println(dump);
-		fh.closeFile();
 	}
 	
 	public HashMap<String,AccountHolder> getLoadedAccounts() //instantiate AccountHolder objs.
@@ -113,14 +108,13 @@ public class AccountManager
 		AccountManager am = new AccountManager();
 		//am.getLoadedAccounts();
 		am.deleteAccount("karmug");
+		am.dumpToFile();
 	
 	}
 
 	public String accountLogin(String userName, String password) 
 	{
 		loadExistingAccountsData();
-		accountHolderObjs = getLoadedAccounts();
-		//System.out.println(accountsData);
 		String success ="Your Username (or) Password is Incorrect ";
 		if(accountHolderObjs.containsKey(userName))
 		{
@@ -128,6 +122,7 @@ public class AccountManager
 			if(password.equals(ac.getPassword()))
 			{
 				success = "Account Login Successfull !!! ";
+				System.out.println(password);
 			}
 			else 
 			{
@@ -139,8 +134,12 @@ public class AccountManager
 
 	public void createAnAccount(ArrayList<ImString> userdata) 
 	{
-		
-		ca.createAccount(userdata);
+		loadExistingAccountsData();
+		if(!accountsData.containsKey(userdata.get(0).get()))
+		{
+			ca.createAccount(userdata);
+			accountFlag = true;
+		}
 	}
 	
 	public ArrayList<String> getPrintData()
@@ -150,7 +149,12 @@ public class AccountManager
 
 	public String getAccountNO() 
 	{
-	
-		return ca.getAccountNO();
+		String s = "";
+		if(accountFlag)
+		{
+			accountFlag = false;
+			s = ca.getAccountNO();
+		}
+		return s;
 	}
 }

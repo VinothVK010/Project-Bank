@@ -148,7 +148,7 @@ public class Main extends Application
 		ImGui.begin("Your Account");
 		if(ImGui.button("deleteAccount"))
 		{
-			am.deleteAccount("kar");
+			am.deleteAccount(name.get());
 		}
 		ImGui.end();
 	}

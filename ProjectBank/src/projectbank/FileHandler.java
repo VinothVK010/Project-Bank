@@ -73,8 +73,8 @@ public class FileHandler
 			fileWriter.write(s);
 			fileWriter.flush();
 			fileWriter.close();
-			System.out.println(s);
 			fileWriter = null;
+			//System.out.println(s);
 		} 
 		catch (IOException e)
 		{
