@@ -24,7 +24,7 @@ public class Main extends Application
     private ArrayList<ImString> userdata;
     private ArrayList<String> printdata;
     private String accountNO = "";
-    
+	private boolean passGenFlag = false; 
 	
 	public Main()
 	{
@@ -38,6 +38,7 @@ public class Main extends Application
 		color[1] = 1;
 		color[2] = 1;
 	}
+	
 	protected void configure(final Configuration config) 
     {
     	config.setTitle("Project Bank");
@@ -52,11 +53,15 @@ public class Main extends Application
 	@Override
 	public void process() 
 	{
-		passwordGenerator();
 		login();
 		if(flag.get())
 		{
 			createAccount();
+		}
+		Log.init();
+		if(passGenFlag)
+		{
+			passwordGenerator();
 		}
 	}
 	
@@ -75,6 +80,7 @@ public class Main extends Application
 		ImGui.textColored(color[0], color[1], color[2], 1.0f, pass.getPassword());
 		ImGui.newLine();
 		generatedPass.set(pass.getPassword());
+		Log.warn(pass.getPassword());
 		ImGui.inputText("Your Password", generatedPass);
 		ImGui.popTextWrapPos();
 		ImGui.newLine();
@@ -99,12 +105,24 @@ public class Main extends Application
 		{
 			flag.set(true);
 		}
+		
+		if(ImGui.button("Password gen"))
+		{
+			passGenFlag = true;
+		}
+		
+		if(ImGui.button("Close Windows"))
+		{
+			flag.set(false);
+			passGenFlag = false;
+		}
+		
 		ImGui.end();
 	}
+	
 	public void createAccount()
 	{
 		ImGui.begin("Create Account");
-
 		for(int i = 0; i < printdata.size(); i++)
 		{
 			//ImGui.sameLine();
@@ -120,8 +138,14 @@ public class Main extends Application
 			am.createAnAccount(userdata);
 			accountNO = am.getAccountNO();
 		}
-		
 		ImGui.text(accountNO);
+		ImGui.end();
+	}
+	
+	public void afterLogin()
+	{
+		ImGui.begin("Your Account");
+		
 		ImGui.end();
 	}
 	

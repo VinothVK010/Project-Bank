@@ -41,7 +41,7 @@ public class AccountManager
 	{
 		fh.openFile("data.csv");
 		accountsData = fh.splitStringFromFile();
-		System.out.println(accountsData);
+		//System.out.println(accountsData);
 		//System.out.println(accountsData.keySet());
 	}
 	
