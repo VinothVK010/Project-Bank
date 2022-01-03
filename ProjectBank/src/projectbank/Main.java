@@ -15,16 +15,20 @@ public class Main extends Application
 	PasswordGenerator pass;
 	AccountManager am;
     ImInt num = new ImInt(6);
+    ImInt money = new ImInt();
     ImString name =  new ImString();
     ImString generatedPass = new ImString();
     ImString password = new ImString();
     ImBoolean flag = new ImBoolean();
     private float[] color = new float[3];
-	private String sucess = "";
+	private String success = "";
+	private String accountBalance = "";
+	private String withdraw = "";
     private ArrayList<ImString> userdata;
     private ArrayList<String> printdata;
     private String accountNO = "";
 	private boolean passGenFlag = false; 
+	
 	
 	public Main()
 	{
@@ -41,7 +45,7 @@ public class Main extends Application
 	
 	protected void configure(final Configuration config) 
     {
-    	config.setTitle("Project Bank");
+    	config.setTitle("Katinji Bank of India");
     	config.setFullScreen(false);
     }
 	
@@ -53,17 +57,23 @@ public class Main extends Application
 	@Override
 	public void process() 
 	{
-		login();
+		if(!am.getLoginStatus())
+		{
+			login();
+		}
 		if(flag.get())
 		{
 			createAccount();
 		}
-		Log.init();
 		if(passGenFlag)
 		{
 			passwordGenerator();
 		}
-		afterLogin();
+		if(am.getLoginStatus())
+		{
+			Log.init();
+			afterLogin(); 
+		}
 	}
 	
 	public void passwordGenerator()
@@ -96,9 +106,9 @@ public class Main extends Application
 		ImGui.inputText("Password", password);
 		if(ImGui.button("Login"))
 		{
-			sucess = am.accountLogin(name.get(),password.get());
+			success = am.accountLogin(name.get(),password.get());
 		}
-		ImGui.text(sucess);
+		ImGui.text(success);
 
 		ImGui.newLine();
 		if(ImGui.button("Create Account"))
@@ -132,19 +142,39 @@ public class Main extends Application
 		
 		if(ImGui.button("Create Account"))
 		{
-			am.createAnAccount(userdata);
-			accountNO = am.getAccountNO();
+			 am.createAnAccount(userdata);
+			 accountNO = am.getAccountNO();
 		}
 		ImGui.text(accountNO);
+		ImGui.text(am.getCreateError());
 		ImGui.end();
 	}
 	
 	public void afterLogin()
 	{
 		ImGui.begin("Your Account");
+		ImGui.inputInt("Money",money);
 		if(ImGui.button("deleteAccount"))
 		{
 			am.deleteAccount(name.get());
+		}
+		if(ImGui.button("Deposit"))
+		{
+			am.deposit(money.get());
+		}
+		if(ImGui.button("checkAccountBalance"))
+		{
+			accountBalance = am.checkAccountBalance();
+		}
+		Log.warn("Account Balance: " + accountBalance);
+		if(ImGui.button("Withdrawal"))
+		{
+			withdraw = am.withdrawal(money.get());
+		}
+		Log.error(withdraw);
+		if(ImGui.button("back"))
+		{
+			am.setLoginStatus(false);
 		}
 		ImGui.end();
 	}

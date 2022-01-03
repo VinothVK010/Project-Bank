@@ -10,13 +10,13 @@ public class Log
 	
 	public static void init()
 	{
-		ImGui.begin("LOG");
+		ImGui.begin("Display");
 		ImGui.end();
 	}
 	
 	public static void info(String s)
 	{
-		ImGui.begin("LOG");
+		ImGui.begin("Display");
 		ImGui.pushTextWrapPos();
 		ImGui.text("[INFO] : " + s);
 		ImGui.popTextWrapPos();
@@ -25,7 +25,7 @@ public class Log
 	
 	public static void error(String s)
 	{
-		ImGui.begin("LOG");
+		ImGui.begin("Display");
 		ImGui.pushTextWrapPos();
 		ImGui.textColored(1.0f, 0.0f, 0.0f, 1.0f, "[ERROR] : " + s);
 		ImGui.popTextWrapPos();
@@ -34,7 +34,7 @@ public class Log
 	
 	public static void warn(String s)
 	{
-		ImGui.begin("LOG");
+		ImGui.begin("Display");
 		ImGui.pushTextWrapPos();
 		ImGui.textColored(0.25f, 1.0f, 0.0f, 1.0f, "[Warning] : " + s);
 		ImGui.popTextWrapPos();

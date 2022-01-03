@@ -17,6 +17,9 @@ public class AccountManager
 	private HashMap<String,AccountHolder> accountHolderObjs;
 	private ArrayList<String> printdata;
 	private CreateAccount ca;
+	private boolean loginFlag = false;
+	private AccountHolder ah;
+	private String createError = "";
 	
 	public AccountManager()
 	{
@@ -32,6 +35,7 @@ public class AccountManager
 	{
 		CreateAccount createAccount = new CreateAccount();
 		createAccount.createAccount();
+		
 	}
 	
 	public void loadExistingAccountsData()//Load all the account data from the file.
@@ -63,6 +67,7 @@ public class AccountManager
 		}
 		return null;
 	}
+	
 	
 	public boolean isAccountAlreadyExists(String username)//check if the account already exists. HINT add some parameters.
 	{
@@ -112,22 +117,82 @@ public class AccountManager
 			if(password.equals(ac.getPassword()))
 			{
 				success = "Account Login Successfull !!! ";
-				System.out.println(password);
+				loginFlag = true;
+				ah = ac;
 			}
 			else 
 			{
 				success = "Your Username (or) Password is Incorrect ";
+				loginFlag = false;
+				ah = null;
 			}
 		}
 		return success;
 	}
-
+	
+	public void deposit(int amount)
+	{
+		if(loginFlag)
+		{
+			ah.setAccBalance(ah.getAccBalance() + amount);
+			this.dumpToFile();
+		}
+	}
+	public String checkAccountBalance()
+	{
+		String accountBal = "";
+		if(loginFlag)
+		{
+			accountBal = ah.getAccBalance() +"";
+		}
+		return accountBal;
+	}
+	public String withdrawal(int amount)
+	{
+		String success = ""; 
+		if(loginFlag)
+		{
+			int currBalance = ah.getAccBalance();
+			if(currBalance < amount)
+			{
+				success = String.format("your Current balance is $%d how can you take such Amount $%d first "
+						+ "deposit some amount after that I'm sure you can withdraw ",currBalance,amount);
+			}
+			else
+			{
+				int newBalance = currBalance - amount;
+				ah.setAccBalance(newBalance);
+				this.dumpToFile();
+			}
+		}
+		return success;
+	}
+	
 	public void createAnAccount(ArrayList<ImString> userdata) 
 	{
 		loadExistingAccountsData();
 		if(!accountsData.containsKey(userdata.get(0).get()))
 		{
+			String userName = userdata.get(0).get();
+			String password = userdata.get(1).get();
+			System.out.println(userName);
+			System.out.println(password);
+			if(userName.equals(password))
+			{
+				this.createError = "UserName and Password can't be the same";
+				return;
+			}
+			if(password.length() <= 6)
+			{
+				this.createError = "Password must be more than \"6\" characters";
+				return;
+			}
 			ca.createAccount(userdata);
+		}
+		else
+		{
+			this.createError = "Account Already exists !! Contact Katinji tech "
+					+ "Support they are good guy :)";
 		}
 	}
 	
@@ -139,5 +204,19 @@ public class AccountManager
 	public String getAccountNO() 
 	{	
 		return ca.getAccountNO();
+	}
+
+	public boolean getLoginStatus() 
+	{
+		return loginFlag;
+	}
+
+	public void setLoginStatus(boolean b) {
+
+		this.loginFlag = b;
+	}
+
+	public String getCreateError() {
+		return this.createError;
 	}
 }
