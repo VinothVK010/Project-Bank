@@ -28,6 +28,7 @@ public class Main extends Application
     private ArrayList<String> printdata;
     private String accountNO = "";
 	private boolean passGenFlag = false; 
+	private boolean withdrawalFlag = false;
 	
 	
 	public Main()
@@ -161,17 +162,27 @@ public class Main extends Application
 		if(ImGui.button("Deposit"))
 		{
 			am.deposit(money.get());
+			accountBalance = "Current Account Balance after deposit: " + am.checkAccountBalance();
+			withdrawalFlag = false;
 		}
 		if(ImGui.button("checkAccountBalance"))
 		{
-			accountBalance = am.checkAccountBalance();
+			accountBalance = "Account Balance: " + am.checkAccountBalance();
+			withdrawalFlag = false;
 		}
-		Log.warn("Account Balance: " + accountBalance);
 		if(ImGui.button("Withdrawal"))
 		{
 			withdraw = am.withdrawal(money.get());
+			if(withdraw.length() > 0)
+				withdrawalFlag = true;
+			else
+				accountBalance = "Current Account Balance after withdrawal: " +am.checkAccountBalance();
 		}
-		Log.error(withdraw);
+		Log.warn(accountBalance);
+		if(withdrawalFlag)
+		{
+			Log.error(withdraw);
+		}
 		if(ImGui.button("back"))
 		{
 			am.setLoginStatus(false);

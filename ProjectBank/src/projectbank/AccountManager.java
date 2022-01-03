@@ -134,8 +134,11 @@ public class AccountManager
 	{
 		if(loginFlag)
 		{
-			ah.setAccBalance(ah.getAccBalance() + amount);
-			this.dumpToFile();
+			if(amount > 0)
+			{
+				ah.setAccBalance(ah.getAccBalance() + amount);
+				this.dumpToFile();
+			}
 		}
 	}
 	public String checkAccountBalance()
@@ -153,16 +156,22 @@ public class AccountManager
 		if(loginFlag)
 		{
 			int currBalance = ah.getAccBalance();
-			if(currBalance < amount)
+			if(currBalance < amount || amount == 0)
 			{
 				success = String.format("your Current balance is $%d how can you take such Amount $%d first "
 						+ "deposit some amount after that I'm sure you can withdraw ",currBalance,amount);
+				return success;
 			}
 			else
-			{
-				int newBalance = currBalance - amount;
-				ah.setAccBalance(newBalance);
-				this.dumpToFile();
+			{	if(currBalance > 0)
+				{
+					int newBalance = currBalance - amount;
+					if(newBalance >= 0)
+					{
+						ah.setAccBalance(newBalance);
+						this.dumpToFile();	
+					}
+				}
 			}
 		}
 		return success;
@@ -175,8 +184,6 @@ public class AccountManager
 		{
 			String userName = userdata.get(0).get();
 			String password = userdata.get(1).get();
-			System.out.println(userName);
-			System.out.println(password);
 			if(userName.equals(password))
 			{
 				this.createError = "UserName and Password can't be the same";
