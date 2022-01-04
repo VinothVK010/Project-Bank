@@ -68,7 +68,9 @@ public class AccountHolder {
 	@Override
 	public String toString()
 	{
-		return name + " " + fatherName;
+		String s =String.format("\n Name: %s \n Father's Name: %s \n Aadhar No: %s \n"
+				+" Pan No: %s \n Account No: %s", name,fatherName,aadhar,panNum,accountNo);
+		return s;
 	}
 
 	public int getAccBalance() {

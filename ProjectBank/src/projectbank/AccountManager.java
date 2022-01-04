@@ -247,4 +247,14 @@ public class AccountManager
 	public String getCreateError() {
 		return this.createError;
 	}
+	
+	public String getAccountInfo()
+	{
+		String s = "";
+		if(ah != null)
+		{
+			s = ah.toString();
+		}
+		return s;
+	}
 }

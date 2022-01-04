@@ -14,19 +14,24 @@ public class Main extends Application
 {
 	PasswordGenerator pass;
 	AccountManager am;
+	
     ImInt num = new ImInt(6);
     ImInt money = new ImInt();
     ImString name =  new ImString();
     ImString generatedPass = new ImString();
     ImString password = new ImString();
     ImBoolean flag = new ImBoolean();
+    
     private float[] color = new float[3];
 	private String success = "";
 	private String accountBalance = "";
 	private String withdraw = "";
+	private String accountNO = "";
+	private String accountInfo = "";
+	
     private ArrayList<ImString> userdata;
     private ArrayList<String> printdata;
-    private String accountNO = "";
+    
 	private boolean passGenFlag = false; 
 	private boolean withdrawalFlag = false;
 	
@@ -167,12 +172,14 @@ public class Main extends Application
 			money.set(0);
 			accountBalance = "Current Account Balance after deposit: " + am.checkAccountBalance();
 			withdrawalFlag = false;
+			accountInfo = "";
 		}
 		
 		if(ImGui.button("checkAccountBalance"))
 		{
 			accountBalance = "Account Balance: " + am.checkAccountBalance();
 			withdrawalFlag = false;
+			accountInfo = "";
 		}
 		
 		if(ImGui.button("Withdrawal"))
@@ -183,6 +190,7 @@ public class Main extends Application
 				withdrawalFlag = true;
 			else
 				accountBalance = "Current Account Balance after withdrawal: " +am.checkAccountBalance();
+			accountInfo = "";
 		}
 		
 		Log.warn(accountBalance);
@@ -191,6 +199,11 @@ public class Main extends Application
 		{
 			Log.error(withdraw);
 		}
+		if(ImGui.button("AccountInfo"))
+		{
+			accountInfo = am.getAccountInfo();
+		}
+		Log.info(accountInfo);
 		
 		if(ImGui.button("deleteAccount"))
 		{
