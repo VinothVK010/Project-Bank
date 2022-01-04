@@ -42,8 +42,7 @@ public class CreateAccount
 			 accountNo += number;
 		}
 		accountNO = accountNo;
-		userInput.add(accountNo);
-		System.out.println("Account Number : " + accountNo);
+		//userInput.add(accountNo);
 		if(flag)
 		{
 			return accountNo;
@@ -89,18 +88,23 @@ public class CreateAccount
 	private void getUserInformation(ArrayList<ImString> userdata) 
 	{
 		userInput.clear();
+		Random random = new Random();
+		int key = random.nextInt(36);
+		CaesarCipher cc = new CaesarCipher(key);
 		for(ImString s : userdata)
 		{
 			if(s.isNotEmpty())
-				userInput.add(s.get());
+				userInput.add(cc.encrypt(s.get()));
 			else
 				flag = false;
 		}	
 		if(flag)
 		{
 			createAccountNo();
+			userInput.add(cc.encrypt(accountNO));
 			userInput.add("0");
 			userInput.add(date.toString());
+			userInput.add(key + "");
 		}
 		
 	}

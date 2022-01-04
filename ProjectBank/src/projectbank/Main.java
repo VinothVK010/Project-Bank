@@ -130,7 +130,7 @@ public class Main extends Application
 		{
 			flag.set(false);
 			passGenFlag = false;
-		}
+		}	
 		
 		ImGui.end();
 	}

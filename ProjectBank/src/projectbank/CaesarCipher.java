@@ -7,7 +7,7 @@ public class CaesarCipher {
     
     public CaesarCipher(int key) {
         theKey = key;
-        alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         shiftedAlphabet = alphabet.substring(key) +
                             alphabet.substring(0,key);
         alphabet = alphabet + alphabet.toLowerCase();
@@ -41,11 +41,11 @@ public class CaesarCipher {
     }
     
     public String encrypt(String input) {
-        return transform(input, alphabet, shiftedAlphabet);
+        return transform(input, alphabet, shiftedAlphabet).toLowerCase();
     }
     
     public String decrypt(String input) {
-        return transform(input, shiftedAlphabet, alphabet);
+        return transform(input, shiftedAlphabet, alphabet).toLowerCase();
     }
     
     public String toString() {
@@ -54,9 +54,9 @@ public class CaesarCipher {
     
     public static void main(String[] args)
     {
-    	CaesarCipher cc = new CaesarCipher(15);
+    	CaesarCipher cc = new CaesarCipher(6);
     	String result = cc.encrypt("Can you imagine life WITHOUT the internet AND computers in your pocket?");
-    	
+    	result = cc.decrypt("fa7cd88d9b7");
     	System.out.println(result);
     }
     

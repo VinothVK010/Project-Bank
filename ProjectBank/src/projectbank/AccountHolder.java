@@ -15,6 +15,7 @@ public class AccountHolder {
 	private String password;
 	private String accBalance;
 	private ArrayList<String> userInputs;
+	private String key;
 	
 	
 	public AccountHolder(ArrayList<String>userInputs,boolean saveToFile)
@@ -35,18 +36,24 @@ public class AccountHolder {
 		accountNo = userInputs.get(5);
 		accBalance = userInputs.get(6);
 		createdDate = userInputs.get(7);
+		key = userInputs.get(8);
 	}
 	
 	public String getOutputString()
 	{
-		String output = String.format("%s,%s,%s,%s,%s,%s,%s,%s",name,password,fatherName,aadhar,panNum,accountNo,accBalance,createdDate);
+		CaesarCipher cc = new CaesarCipher(Integer.parseInt(key));
+		String output = String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s",cc.encrypt(name),
+						cc.encrypt(password),cc.encrypt(fatherName),cc.encrypt(aadhar),cc.encrypt(panNum),cc.encrypt(accountNo),
+						accBalance,createdDate,key);
 		return output;
 	}
 	
 	public void saveToFile() 
 	{
 		FileHandler fh = new FileHandler("data.csv");
-		fh.writeString(getOutputString());
+		fh.writeString(String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s",name,
+				password,fatherName,aadhar,panNum,accountNo,
+				accBalance,createdDate,key));
 		fh.closeFile();
 	}
 	

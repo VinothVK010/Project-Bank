@@ -98,13 +98,27 @@ public class AccountManager
 		fh.dumString(dump);
 	}
 	
+	public String dataDecryption(int key,String s)
+	{
+		CaesarCipher cc =  new CaesarCipher(key);	
+		return cc.decrypt(s);
+	}
+	
+	
+	
 	public HashMap<String,AccountHolder> getLoadedAccounts() //instantiate AccountHolder objs.
 	{
+		//if(accountsData == null)
 		HashMap<String,AccountHolder> accountData = new HashMap<>();
 		for(String s : accountsData.keySet())
 		{
-			AccountHolder ac = new AccountHolder(accountsData.get(s),false);
-			accountData.put(s, ac);
+			ArrayList<String> userData = accountsData.get(s);
+			for(int i = 0; i < 6; i++)
+			{
+				userData.set(i,dataDecryption(Integer.parseInt(userData.get(8)), userData.get(i)));
+			}
+			AccountHolder ac = new AccountHolder(userData,false);
+			accountData.put(userData.get(0), ac);
 			ac = null;
 		}
 		return accountData;
