@@ -51,11 +51,13 @@ public class AccountManager
 	{
 		System.out.print("Enter your UserName: ");
 		String username = scanner.next();
+		
 		if(accountHolderObjs.containsKey(username))
 		{
 			AccountHolder ac = accountHolderObjs.get(username);
 			System.out.print("Enter your Password: ");
 			String password = scanner.next();
+			
 			if(password.equals(ac.getPassword()))
 			{
 				System.out.println("Account Login Successfull !!! ");
@@ -65,6 +67,7 @@ public class AccountManager
 				System.out.println("Your Username (or) Password is Incorrect ");
 			}
 		}
+		
 		return null;
 	}
 	
@@ -111,6 +114,7 @@ public class AccountManager
 	{
 		loadExistingAccountsData();
 		String success ="Your Username (or) Password is Incorrect ";
+		
 		if(accountHolderObjs.containsKey(userName))
 		{
 			AccountHolder ac = accountHolderObjs.get(userName);
@@ -144,6 +148,7 @@ public class AccountManager
 	public String checkAccountBalance()
 	{
 		String accountBal = "";
+		
 		if(loginFlag)
 		{
 			accountBal = ah.getAccBalance() +"";
@@ -184,11 +189,13 @@ public class AccountManager
 		{
 			String userName = userdata.get(0).get();
 			String password = userdata.get(1).get();
+			
 			if(userName.equals(password))
 			{
 				this.createError = "UserName and Password can't be the same";
 				return;
 			}
+			
 			if(password.length() <= 6)
 			{
 				this.createError = "Password must be more than \"6\" characters";

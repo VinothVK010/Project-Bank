@@ -82,11 +82,13 @@ public class Main extends Application
 		ImGui.begin("PasswordGenerator");
 		ImGui.textColored(1.0f, 0.0f, 0.0f, 1, "hello");
 		ImGui.inputInt("Password Length", num);
+		
 		if(ImGui.button("Generate password"))
 		{
 			pass.process(num.get());
 			
 		}
+		
 		ImGui.pushTextWrapPos();
 		ImGui.textColored(color[0], color[1], color[2], 1.0f, pass.getPassword());
 		ImGui.newLine();
@@ -105,13 +107,15 @@ public class Main extends Application
 		ImGui.begin("Account Login");
 		ImGui.inputText("Username", name);
 		ImGui.inputText("Password", password);
+		
 		if(ImGui.button("Login"))
 		{
 			success = am.accountLogin(name.get(),password.get());
 		}
+		
 		ImGui.text(success);
-
 		ImGui.newLine();
+		
 		if(ImGui.button("Create Account"))
 		{
 			flag.set(true);
@@ -134,6 +138,7 @@ public class Main extends Application
 	public void createAccount()
 	{
 		ImGui.begin("Create Account");
+		
 		for(int i = 0; i < printdata.size(); i++)
 		{
 			ImGui.pushTextWrapPos();
@@ -155,44 +160,55 @@ public class Main extends Application
 	{
 		ImGui.begin("Your Account");
 		ImGui.inputInt("Money",money);
-		if(ImGui.button("deleteAccount"))
-		{
-			am.deleteAccount(name.get());
-		}
+		
 		if(ImGui.button("Deposit"))
 		{
 			am.deposit(money.get());
+			money.set(0);
 			accountBalance = "Current Account Balance after deposit: " + am.checkAccountBalance();
 			withdrawalFlag = false;
 		}
+		
 		if(ImGui.button("checkAccountBalance"))
 		{
 			accountBalance = "Account Balance: " + am.checkAccountBalance();
 			withdrawalFlag = false;
 		}
+		
 		if(ImGui.button("Withdrawal"))
 		{
 			withdraw = am.withdrawal(money.get());
+			money.set(0);
 			if(withdraw.length() > 0)
 				withdrawalFlag = true;
 			else
 				accountBalance = "Current Account Balance after withdrawal: " +am.checkAccountBalance();
 		}
+		
 		Log.warn(accountBalance);
+		
 		if(withdrawalFlag)
 		{
 			Log.error(withdraw);
 		}
+		
+		if(ImGui.button("deleteAccount"))
+		{
+			am.deleteAccount(name.get());
+		}
+		
 		if(ImGui.button("back"))
 		{
 			am.setLoginStatus(false);
 		}
+		
 		ImGui.end();
 	}
 	
 	public void genImString()
 	{
 		userdata.clear();
+		
 		for(int i=0; i < printdata.size(); i++)
 		{
 			ImString s = new ImString();
