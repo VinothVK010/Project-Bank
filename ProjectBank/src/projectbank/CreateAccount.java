@@ -1,7 +1,5 @@
 package projectbank;
 
-import java.util.Scanner;
-
 import imgui.type.ImString;
 
 import java.util.ArrayList;
@@ -12,10 +10,7 @@ import java.util.Random;
 public class CreateAccount 
 {
 	private ArrayList<String> printData;
-	//private HashMap<String,String> userInput = new HashMap<>();
 	private ArrayList<String> userInput;	
-	private Scanner scanner;
-	//private FileHandler fh;
 	private Date date;
 	private boolean flag = true;
 	private String accountNO = "";
@@ -25,12 +20,9 @@ public class CreateAccount
 		 printData = new ArrayList<>();
 		 userInput = new ArrayList<>();
 		 date = new Date();
-		 scanner = new Scanner(System.in);
-		 //fh = new FileHandler("printdata.txt");
-		 //printData = fh.getPrintData();
 	}
 	
-	private String createAccountNo()
+	private String createAccountNo()//creating a random account No
 	{
 		Random random = new Random();
 		int number = 0;
@@ -42,7 +34,6 @@ public class CreateAccount
 			 accountNo += number;
 		}
 		accountNO = accountNo;
-		//userInput.add(accountNo);
 		if(flag)
 		{
 			return accountNo;
@@ -50,6 +41,7 @@ public class CreateAccount
 		return "";
 	}
 	
+	/*
 	private void getUserInformation()
 	{
 		String userData = "";
@@ -65,6 +57,7 @@ public class CreateAccount
 		userInput.add(date.toString());
 	}
 	
+	/*
 	public void createAccount()
 	{
 		getUserInformation();
@@ -73,10 +66,10 @@ public class CreateAccount
 			AccountHolder newAccount = new AccountHolder(userInput,true);
 		}		
 	}
+	*/
 	
-	
-
-	public void createAccount(ArrayList<ImString> userdata) {
+	public void createAccount(ArrayList<ImString> userdata) 
+	{
 		getUserInformation(userdata);
 		if(flag)
 		{
@@ -91,13 +84,15 @@ public class CreateAccount
 		Random random = new Random();
 		int key = random.nextInt(36);
 		CaesarCipher cc = new CaesarCipher(key);
+		
 		for(ImString s : userdata)
 		{
 			if(s.isNotEmpty())
 				userInput.add(cc.encrypt(s.get()));
 			else
 				flag = false;
-		}	
+		}
+		
 		if(flag)
 		{
 			createAccountNo();

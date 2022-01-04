@@ -35,7 +35,6 @@ public class Main extends Application
 	private boolean passGenFlag = false; 
 	private boolean withdrawalFlag = false;
 	
-	
 	public Main()
 	{
 		pass = new PasswordGenerator();
@@ -55,7 +54,8 @@ public class Main extends Application
     	config.setFullScreen(false);
     }
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	{
 		Main main = new Main();
 		launch(main);
 	}
@@ -67,19 +67,23 @@ public class Main extends Application
 		{
 			login();
 		}
+		
 		if(flag.get())
 		{
 			createAccount();
 		}
+		
 		if(passGenFlag)
 		{
 			passwordGenerator();
 		}
+		
 		if(am.getLoginStatus())
 		{
 			Log.init();
 			afterLogin(); 
 		}
+		
 	}
 	
 	public void passwordGenerator()
@@ -102,7 +106,6 @@ public class Main extends Application
 		ImGui.inputText("Your Password", generatedPass);
 		ImGui.popTextWrapPos();
 		ImGui.newLine();
-		
 		ImGui.colorEdit3("Pick A Color", color);
 		ImGui.end();
 	}
@@ -143,7 +146,6 @@ public class Main extends Application
 	public void createAccount()
 	{
 		ImGui.begin("Create Account");
-		
 		for(int i = 0; i < printdata.size(); i++)
 		{
 			ImGui.pushTextWrapPos();
@@ -156,6 +158,7 @@ public class Main extends Application
 			 am.createAnAccount(userdata);
 			 accountNO = am.getAccountNO();
 		}
+		
 		ImGui.text(accountNO);
 		ImGui.text(am.getCreateError());
 		ImGui.end();
@@ -218,7 +221,7 @@ public class Main extends Application
 		ImGui.end();
 	}
 	
-	public void genImString()
+	public void genImString()//generating ImStrings to store the userData
 	{
 		userdata.clear();
 		

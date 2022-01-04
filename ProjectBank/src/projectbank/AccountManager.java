@@ -2,23 +2,21 @@ package projectbank;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
-import java.util.Set;
-
+//import java.util.Scanner;
 import imgui.type.ImString;
 
-//TODO Someone has to do this stuff.
+//TODO Someone has to do this stuff. Update completed
 
 public class AccountManager 
 {
 	private FileHandler fh;
 	private HashMap<String,ArrayList<String>> accountsData;
-	private Scanner scanner;
+	//private Scanner scanner; don't need you
 	private HashMap<String,AccountHolder> accountHolderObjs;
 	private ArrayList<String> printdata;
 	private CreateAccount ca;
 	private boolean loginFlag = false;
-	private AccountHolder ah;
+	private AccountHolder ah;//current account
 	private String createError = "";
 	
 	public AccountManager()
@@ -27,26 +25,17 @@ public class AccountManager
 		printdata = fh.getPrintData();
 		fh.closeFile();
 		accountsData = new HashMap<>();
-		scanner = new Scanner(System.in);
+		//scanner = new Scanner(System.in);
 		ca = new CreateAccount();
 	}
-	
+	/*
 	public void createAnAccount()
 	{
 		CreateAccount createAccount = new CreateAccount();
 		createAccount.createAccount();
-		
 	}
-	
-	public void loadExistingAccountsData()//Load all the account data from the file.
-	{
-		FileHandler fh = new FileHandler("data.csv");
-		accountsData = null;
-		accountsData = fh.splitStringFromFile();
-		accountHolderObjs = getLoadedAccounts();
-		fh.closeFile();
-	}
-	
+	*/
+	/* say no to Scanner
 	public AccountHolder accountLogin()//if username and passwords match then return the AccountHolder obj for withdrawal and deposit purposes.
 	{
 		System.out.print("Enter your UserName: ");
@@ -70,7 +59,16 @@ public class AccountManager
 		
 		return null;
 	}
+	*/
 	
+	public void loadExistingAccountsData()//Load all the account data from the file.
+	{
+		FileHandler fh = new FileHandler("data.csv");
+		accountsData = null;
+		accountsData = fh.splitStringFromFile();
+		accountHolderObjs = getLoadedAccounts();
+		fh.closeFile();
+	}
 	
 	public boolean isAccountAlreadyExists(String username)//check if the account already exists. HINT add some parameters.
 	{
@@ -93,29 +91,26 @@ public class AccountManager
 		String dump = "";
 		for(String s : accountHolderObjs.keySet())
 		{
-			dump += accountHolderObjs.get(s).getOutputString() +"\n"; 
+			dump += accountHolderObjs.get(s).getOutputString() +"\n"; //cool right?
 		}
 		fh.dumString(dump);
 	}
 	
-	public String dataDecryption(int key,String s)
+	public String dataDecryption(int key,String s)//decrypt the data
 	{
 		CaesarCipher cc =  new CaesarCipher(key);	
 		return cc.decrypt(s);
 	}
 	
-	
-	
 	public HashMap<String,AccountHolder> getLoadedAccounts() //instantiate AccountHolder objs.
 	{
-		//if(accountsData == null)
 		HashMap<String,AccountHolder> accountData = new HashMap<>();
 		for(String s : accountsData.keySet())
 		{
 			ArrayList<String> userData = accountsData.get(s);
 			for(int i = 0; i < 6; i++)
 			{
-				userData.set(i,dataDecryption(Integer.parseInt(userData.get(8)), userData.get(i)));
+				userData.set(i,dataDecryption(Integer.parseInt(userData.get(8)), userData.get(i)));//decrypting the data
 			}
 			AccountHolder ac = new AccountHolder(userData,false);
 			accountData.put(userData.get(0), ac);
@@ -124,7 +119,7 @@ public class AccountManager
 		return accountData;
 	}
 	
-	public String accountLogin(String userName, String password) 
+	public String accountLogin(String userName, String password)//validate account login
 	{
 		loadExistingAccountsData();
 		String success ="Your Username (or) Password is Incorrect ";
@@ -135,7 +130,7 @@ public class AccountManager
 			if(password.equals(ac.getPassword()))
 			{
 				success = "Account Login Successfull !!! ";
-				loginFlag = true;
+				loginFlag = true;//this is the important variable 
 				ah = ac;
 			}
 			else 
@@ -152,7 +147,7 @@ public class AccountManager
 	{
 		if(loginFlag)
 		{
-			if(amount > 0)
+			if(amount > 0)//this has to be checked right?
 			{
 				ah.setAccBalance(ah.getAccBalance() + amount);
 				this.dumpToFile();
@@ -167,6 +162,7 @@ public class AccountManager
 		{
 			accountBal = ah.getAccBalance() +"";
 		}
+		
 		return accountBal;
 	}
 	public String withdrawal(int amount)
@@ -185,7 +181,7 @@ public class AccountManager
 			{	if(currBalance > 0)
 				{
 					int newBalance = currBalance - amount;
-					if(newBalance >= 0)
+					if(newBalance >= 0)//Should be greater than zero right?
 					{
 						ah.setAccBalance(newBalance);
 						this.dumpToFile();	
@@ -196,15 +192,15 @@ public class AccountManager
 		return success;
 	}
 	
-	public void createAnAccount(ArrayList<ImString> userdata) 
+	public void createAnAccount(ArrayList<ImString> userdata) //create the account
 	{
 		loadExistingAccountsData();
-		if(!accountsData.containsKey(userdata.get(0).get()))
+		if(!isAccountAlreadyExists(userdata.get(0).get()))
 		{
 			String userName = userdata.get(0).get();
 			String password = userdata.get(1).get();
 			
-			if(userName.equals(password))
+			if(userName.equals(password))//cool stuff
 			{
 				this.createError = "UserName and Password can't be the same";
 				return;
@@ -220,7 +216,7 @@ public class AccountManager
 		else
 		{
 			this.createError = "Account Already exists !! Contact Katinji tech "
-					+ "Support they are good guy :)";
+					+ "Support they are good guys :)";//LOL
 		}
 	}
 	
@@ -248,7 +244,7 @@ public class AccountManager
 		return this.createError;
 	}
 	
-	public String getAccountInfo()
+	public String getAccountInfo()//account data
 	{
 		String s = "";
 		if(ah != null)
@@ -258,3 +254,4 @@ public class AccountManager
 		return s;
 	}
 }
+//257 lines of code

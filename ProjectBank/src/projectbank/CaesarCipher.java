@@ -54,9 +54,9 @@ public class CaesarCipher {
     
     public static void main(String[] args)
     {
-    	CaesarCipher cc = new CaesarCipher(6);
+    	CaesarCipher cc = new CaesarCipher(11);
     	String result = cc.encrypt("Can you imagine life WITHOUT the internet AND computers in your pocket?");
-    	result = cc.decrypt("fa7cd88d9b7");
+    	result = cc.decrypt("vl2x5rdbbd");
     	System.out.println(result);
     }
     

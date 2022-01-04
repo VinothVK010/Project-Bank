@@ -1,10 +1,8 @@
-
 package projectbank;
 
 import java.util.ArrayList;
 
 public class AccountHolder {
-	
 	
 	private String name;
 	private String fatherName;
@@ -16,7 +14,6 @@ public class AccountHolder {
 	private String accBalance;
 	private ArrayList<String> userInputs;
 	private String key;
-	
 	
 	public AccountHolder(ArrayList<String>userInputs,boolean saveToFile)
 	{
@@ -104,6 +101,4 @@ public class AccountHolder {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
 }
