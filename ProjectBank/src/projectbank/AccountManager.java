@@ -124,7 +124,7 @@ public class AccountManager
 		loadExistingAccountsData();
 		String success ="Your Username (or) Password is Incorrect ";
 		
-		if(accountHolderObjs.containsKey(userName))
+		if(isAccountAlreadyExists(userName))
 		{
 			AccountHolder ac = accountHolderObjs.get(userName);
 			if(password.equals(ac.getPassword()))

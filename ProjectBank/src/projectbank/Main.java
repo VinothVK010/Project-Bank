@@ -9,7 +9,6 @@ import imgui.type.ImBoolean;
 import imgui.type.ImInt;
 import imgui.type.ImString;
 
-
 public class Main extends Application
 {
 	PasswordGenerator pass;
@@ -50,7 +49,7 @@ public class Main extends Application
 	
 	protected void configure(final Configuration config) 
     {
-    	config.setTitle("Katinji Bank of India");
+    	config.setTitle("Katinji Bank of India(KBI)");
     	config.setFullScreen(false);
     }
 	
@@ -95,7 +94,6 @@ public class Main extends Application
 		if(ImGui.button("Generate password"))
 		{
 			pass.process(num.get());
-			
 		}
 		
 		ImGui.pushTextWrapPos();
@@ -202,6 +200,7 @@ public class Main extends Application
 		{
 			Log.error(withdraw);
 		}
+		
 		if(ImGui.button("AccountInfo"))
 		{
 			accountInfo = am.getAccountInfo();
